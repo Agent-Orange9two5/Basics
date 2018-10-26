@@ -1,0 +1,292 @@
+#include<iostream>
+#include<stdlib.h>
+#include<fstream>
+#include<string.h>
+ifstream f("date.in");
+using namespace std;
+struct nod{
+       int info;
+       nod* urm;
+       };
+nod *prim1, *ultim1, *prim2, *ultim2;
+void adaugs(int  x, nod *&prim, nod *&ultim)
+{
+     nod*nou=new nod;
+     nou->info=x;
+     nou->urm=NULL;
+     if(prim==NULL) prim=nou;
+     else ultim->urm=nou;
+     ultim=nou;
+}
+void afis(nod *prim)
+{ nod *p=prim;
+  while(p)
+  { cout<<p->info<<" ";
+    p=p->urm;
+  }
+}
+struct data
+{
+    int zi,luna,an;
+};
+int nrzile(int luna, int an)
+{
+    int Z[13]={31,31,28,31,30,31,30,31,31,30,31,30,31};
+    if(luna!=2 || !(an%4==0 && an%100!=0 || an%400==0)) return Z[luna];
+    else return 29;
+}
+int nrzileazi(data d)
+{
+    int z=(d.an-1)*365+(d.an-1)/4-(d.an-1)/100+(d.an-1)/400;
+    for(int i=1;i<d.luna;i++)
+        z=z+nrzile(i,d.an);
+    return z+d.zi;
+}
+void citire(data &d)
+{
+    cin>>d.zi>>d.luna>>d.an;
+}
+int f (unsigned long a)
+{
+    int c,d,x;
+    c=0;
+    for(d=2;d<=a/2;d++) if(a%d==0){
+        for(x=1;x<=d;x++) if(d%x==0) c++;
+        if(c==2){
+            return d; break;
+        }
+    } if(c==0) return 1;
+}
+/*void stergpu( nodd *&prim)
+ {nodd *q=prim;
+  prim=prim->urm;
+  prim->prec=0;
+  delete q;
+  nodd *u=prim;
+  while(u->urm) u=u->urm;
+  nodd *p=u->prec;
+  p->urm=0;
+  delete u;
+ } */
+int main()
+{ unsigned long int op,n,i,x,c,s,a,b,r,j,v[100][100],k,m,p;
+  char rasp;
+    do
+    {cout<<"                    Welcome to the aplication menu , Sir                 "<<endl<<endl;
+     cout<<"1) Read n natural numbers and n full numbers and calculate the average of the strict pozitive ones."<<endl;
+     cout<<"2) Show the first 100 Fibonacci numbers."<<endl;
+     cout<<"3) Read a natural number and check if it is palindrome or not."<<endl;
+     cout<<"4) Display number 24."<<endl;
+     cout<<"5) Display number 37."<<endl;
+     cout<<"6) Display number 38."<<endl;
+     cout<<"7) Display number 47."<<endl;
+     cout<<"8) Display number 51."<<endl;
+     cout<<"9) Display number 61."<<endl;
+     cout<<"10) Display number 62."<<endl;
+     cout<<"11) Exit, Sir?(Y or y/N or n)"<<endl;
+     cout<<"12) Build and Run check"<<endl;
+     cout<<"13) Structures "<<endl;
+     cout<<"14) Lists and Structures ";
+     cout<<"Choose your option, Sir :"; cin>>op;
+     if(op==11)
+       {cout<<"Exit, Sir?"; cin>>rasp;
+       system("cls");
+        if(rasp=='Y' || rasp=='y')
+          cout<<"Bye Bye Sir..."<<endl;
+       }
+                       else if (op==1)
+                        {cout<<"How many numbers , Sir?"; cin>>n;
+                         s=0;c=0;
+                         for(i=1;i<=n;i++)
+                            {cin>>x;
+                             if(x>0)
+                               {s=s+x;
+                                c++;
+                               }
+                            }
+                         cout<<"The average of the strict numbers you entered, Sir , is:"<<float(s)/c<<endl;
+
+                        }
+                       else if(op==2)
+                        {a=b=1;
+                        cout<<a<<' '<<b<<' ';
+                        for(i=3;i<=100;i++)
+                           {c=a+b; cout<<c<<" ";
+                           a=b; b=c;
+                           }
+
+                        }
+                       else if (op==3)
+                       {cout<<"Which number should I check, Sir?"<<endl;
+                        cin>>n;r=0;x=n;
+                        while(x>0)
+                             {r=r*10+n%10;
+                              x=x/10;
+                             }
+                        if(r==n) cout<<"It is palindrome, Sir"<<endl;
+                        else cout<<"I`m sorry Sir, it is not palindrome."<<endl;
+
+
+                       }
+                       else if(op==4)
+                       {
+                           cout<<"displying number 24:"<<endl;
+                            cin>>n;
+                            for(i=1;i<=n;i++)
+                            for(j=1;j<=n;j++)
+                            if(j==1||i==1) v[i][j]=1; else v[i][j]=v[i][j-1]+v[i-1][j];
+                            for(i=1;i<=n;i++){
+                            for(j=1;j<=n;j++)
+                                cout<<v[i][j]<<" ";
+                                cout<<endl;
+
+                            }
+                       }
+                       else if(op==5)
+                       {
+                           cout<<"displaying number 37:"<<endl;
+                           cin>>n>>k;
+                           for(i=1;i<=n;i++)
+                           for(j=1;j<=n;j++)
+                           if(j<=k) v[i][j]=1; else  v[i][j]=2;
+                           for(i=1;i<=n;i++){cout<<"8) Display number 51."<<endl;
+                           for(j=1;j<=n;j++)
+                                cout<<v[i][j]<<" ";
+                                cout<<endl;
+
+                        }
+                       }
+                       else if(op==6)
+                       {
+                           cout<<"Displaying number 38:"<<endl;
+                           cin>>n>>k;
+                           for(i=1;i<=n;i++)
+                           for(j=1;j<=n;j++)
+                           if(k==i) v[i][j]=0; else if(k>i) v[i][j]=1; else if(k<i) v[i][j]=2;
+                           for(i=1;i<=n;i++){
+                           for(j=1;j<=n;j++)
+                                cout<<v[i][j]<<" ";
+                                cout<<endl;
+
+                         }
+                       }
+                       else if(op==7)
+                       {
+                           cout<<"Displaying number 47:"<<endl;
+                           cin>>m>>n;
+                           for(i=1;i<=m;i++)
+                           for(j=1;j<=n;j++)
+                           if(i%2!=1&&(i+1)%2==0) v[i][j]=0; else if(i%2==1||(i+1)%2!=0) v[i][j]=1;
+                           for(i=1;i<=m;i++) {
+                           for(j=1;j<=n;j++)
+                            cout<<v[i][j];
+                            cout<<endl;
+                        }
+
+                       }
+                       else if(op==8)
+                       {
+                           cout<<"Displaying number 51:"<<endl;
+                           cin>>n;
+                           for(i=1;i<=n;i++)
+                           for(j=1;j<=n;j++) cin>>v[i][j];
+                           for(i=1;i<=n;i++)
+                           for(j=1;j<=n;j++) if(i==j&&v[i][j]%2==0) p=p*v[i][j];
+
+                            cout<<p;
+                       }
+                       else if(op==9)
+                       {
+                           cout<<"Displaying number 61:"<<endl;
+                            cin>>n;
+                            for(i=1;i<=n;i++)
+                            for(j=1;j<=n;j++){
+                            v[i][j]=k; k=k+2; }
+                            for(i=1;i<=n;i++){
+                            for(j=1;j<=n;j++)
+                                cout<<v[i][j]<<" ";
+                                cout<<endl;
+
+                        }
+                       }
+                       else if(op==10)
+                       {
+                           cin>>n;
+                           for(i=1;i<=n;i++)
+                           for(j=1;j<=n;j++){
+                           if(i<=k&&j<=k) v[i][j]=k; k++; }
+                           for(i=1;i<=n;i++){
+                           for(j=1;j<=n;j++)
+                              cout<<v
+                              [i][j]<<" ";
+                              cout<<endl;
+
+                        }
+                       }
+                      else if(op==11)
+                       { int k=0;
+                         char s[50]="anii de liceu sunt foarte frumosi",s2[50]="",*p;
+                         p=strtok(s," ");
+                        while(p){
+                            if(strlen(p)%2==0){ strcat(s2,"#"); k++; }
+                            else strcat(s2,p);
+                          strcat(s2," ");
+                          p=strtok(NULL," ");
+                                               }
+                          if(k==0) cout<<"NU";
+                          else cout<<s2;
+
+                         }
+                         else if(op==12)
+                         {
+                             int i,n,v[100],j=1;
+                             unsigned long int k;
+                                 cin>>k;
+                           for(i=1;i<=n;i++){
+                              cin>>k;
+                           if(f(k)==1) v[j++]=k;}
+                           if(j>=2){
+                                     j--;
+                           for(i=1;i<j;i++)
+                           for(k=i+1;k<=j;k++) if(v[i]>v[k]) swap(v[i],v[k]);
+                           for(i=1;i<=j;i++) cout<<v[i]<<" ";} else cout<<"nu exista";
+                         }
+                         else if(op==13)
+                         {
+
+                            data d1,d2;
+                            citire(d1);
+                            citire(d2);
+                         if(nrzileazi(d1)>nrzileazi(d2))
+                               cout<<nrzileazi(d1)-nrzileazi(d2);
+                               else
+                               cout<<nrzileazi(d2)-nrzileazi(d1);
+                         return 0;
+
+                         }
+                         else if(op==14)
+                         {
+                            int x;
+                           prim1=NULL;
+                           ultim1=NULL;
+                           prim2=NULL;
+                           ultim2=NULL;
+                           while(f>>x)
+                           if(x%2==0) adaugs(x,prim1,ultim1);
+                                  else adaugs(x,prim2,ultim2);
+                           afis(prim1); cout<<endl;
+                           afis(prim2); cout<<endl;
+                           ultim1->urm=prim2;
+                           afis(prim1);
+                           system("pause");
+                               return 0;
+
+                         }cout<<"Choose your option, Sir :"; cin>>op;
+
+
+                        cout<<"Exit , Sir?"; cin>>rasp;
+                        system("cls");
+
+    }while(rasp=='N' || rasp=='n');
+
+}
